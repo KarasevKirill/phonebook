@@ -123,7 +123,7 @@ class Router
     }
 
     /**
-     * Принимает строку с именем контроллера или экшена и возвращает её в CamelCase
+     * Принимает строку с именем контроллера или экшена и возвращает её в CamelCase стиле
      *
      * @param string
      * @return string
@@ -132,7 +132,7 @@ class Router
     {
         $name = str_replace('-', ' ', $name);
 
-        ucwords($name);
+        $name = ucwords($name);
 
         return str_replace(' ', '', $name);
     }
