@@ -88,7 +88,6 @@ abstract class Form
     /**
      * Какая форма без валидации :)
      *
-     * @param array
      */
     abstract protected function isValid();
 }
