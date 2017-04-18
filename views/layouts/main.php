@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <?php $this->getStyles()?>
+    <?php $this->getLayoutStyles()?>
     <title><?= htmlspecialchars($this->title)?></title>
 </head>
 <body>
@@ -21,6 +21,7 @@
 
         </div>
     </div>
-    <?php $this->getScripts()?>
+    <?php $this->getLayoutScripts()?>
+    <?php $this->getViewScripts()?>
 </body>
 </html>

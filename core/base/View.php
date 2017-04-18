@@ -17,9 +17,15 @@ class View
     public $layout;
 
     /**
-     * @var array массив путей к css и js файлам
+     * @var array массив путей к css и js файлам, подключаемым в шаблоне
      */
-    private $staticContent = [];
+    private $layoutFiles = [];
+
+    /**
+     * @var array массив путей к js файлам, подключенным в представлении и
+     * вырезанных оттуда
+     */
+    private $viewScripts = [];
 
     /**
      * Конструктор класса View. Получет массив путей до js и css файлов, которые необходимо
@@ -29,7 +35,7 @@ class View
      */
     public function __construct()
     {
-        $this->staticContent = require_once ROOT . '/config/content.php';
+        $this->layoutFiles = require_once ROOT . '/config/content.php';
     }
 
     /**
@@ -69,6 +75,8 @@ class View
 
         if (is_file($layoutFile)) {
 
+            $content = $this->cutScripts($content);
+
             require_once $layoutFile;
 
         } else {
@@ -85,11 +93,11 @@ class View
      *
      * @return void
      */
-    private function getStyles()
+    private function getLayoutStyles()
     {
-        if (isset($this->staticContent['css'])) {
+        if (isset($this->layoutFiles['css'])) {
 
-            foreach ($this->staticContent['css'] as $file) {
+            foreach ($this->layoutFiles['css'] as $file) {
 
                 echo '<link rel="stylesheet" type="text/css" href="/content/css/' . $file . '">';
 
@@ -103,15 +111,54 @@ class View
      *
      * @return void
      */
-    private function getScripts()
+    private function getLayoutScripts()
     {
-        if (isset($this->staticContent['js'])) {
+        if (isset($this->layoutFiles['js'])) {
 
-            foreach ($this->staticContent['js'] as $file) {
+            foreach ($this->layoutFiles['js'] as $file) {
 
                 echo '<script src="/content/js/' . $file . '"></script>';
 
             }
         }
+    }
+
+    /**
+     * Формирует и выводит ссылки на файлы js, имена которых находятся в
+     * $this->staticContent
+     *
+     * @return void
+     */
+    private function getViewScripts()
+    {
+        if (isset($this->viewScripts[0])) {
+
+            foreach ($this->viewScripts[0] as $file) {
+
+                echo $file;
+
+            }
+        }
+    }
+
+    /**
+     * Вырезает из страницы скрипты для того, чтобы подключить их уже после скриптов шаблона.
+     * Это позволяет подключать код jQuery в любом месте страницы.
+     *
+     * @param string
+     * @return string
+     */
+    private function cutScripts($content)
+    {
+        $pattern = '#<script.*?>.*?</script>#si';
+
+        preg_match_all($pattern, $content, $this->viewScripts);
+
+        if (isset($this->viewScripts)) {
+
+            $content = preg_replace($pattern, '', $content);
+
+        }
+        return $content;
     }
 }

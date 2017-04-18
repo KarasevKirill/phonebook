@@ -72,7 +72,6 @@ abstract class Form
         $name = end($array);
 
         return strtolower(str_replace('Form', '', $name));
-
     }
 
     /**

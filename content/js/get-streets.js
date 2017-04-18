@@ -1,5 +1,5 @@
 window.onload = function () {
-
+    
     // список городов
     var selectCities = document.getElementById('cities');
 
