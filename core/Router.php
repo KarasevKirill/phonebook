@@ -16,13 +16,13 @@ class Router
 
     /**
      * Конструктор класса Router, получает массив настроек
-     * config/router_config.php
+     * config/router.php
      *
      * @return void
      */
     public function __construct()
     {
-        $this->config = require_once ROOT . '/config/router_config.php';
+        $this->config = require_once ROOT . '/config/router.php';
     }
 
     /**
@@ -56,7 +56,7 @@ class Router
     }
 
     /**
-     * Подключает путь, указанный в 'notFound' в config/router_config.php
+     * Подключает путь, указанный в 'notFound' в config/router.php
      *
      * @return void
      */
@@ -66,8 +66,9 @@ class Router
     }
 
     /**
-     * Разбивает полученный url и ищет совпадения с таблицей маршрутов, если находит, то помещает
-     * имя контроллера и имя метода в $this->route и возвращает true, иначе false
+     * Разбивает полученный url и ищет совпадения с таблицей маршрутов ($this->config['routes']),
+     * если находит, то помещает имя контроллера и имя метода в $this->route и возвращает true,
+     * иначе false
      *
      * @param string
      * @return boolean
@@ -104,7 +105,7 @@ class Router
     }
 
     /**
-     * Проверяет, существует ил строка с паармтерами в $this->route['parameter'], если да
+     * Проверяет, существует ли строка с парамтерами в $this->route['parameter'], если да
      * то возвращает параметры в виде массива, иначе возвращает пустой массив
      *
      * @return array
@@ -120,7 +121,7 @@ class Router
     }
 
     /**
-     * Принимает строку с именем контроллера или экшена и возвращает её в CamelCase стиле
+     * Принимает строку с именем контроллера или метода и возвращает её в CamelCase стиле
      *
      * @param string
      * @return string
