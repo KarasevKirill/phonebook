@@ -212,6 +212,6 @@ class ContactController extends Controller
     {
         http_response_code(404);
 
-        $this->render('contact/not-found');
+        return $this->render('contact/not-found');
     }
 }

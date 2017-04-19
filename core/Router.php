@@ -5,11 +5,6 @@ namespace core;
 class Router
 {
     /**
-     * @var array таблица маршрутов
-     */
-    private $routes = [];
-
-    /**
      * @var array текущий маршрут
      */
     private $route = [];
@@ -20,15 +15,14 @@ class Router
     private $config = [];
 
     /**
-     * Конструктор класса Router, получает массив маршрутов из файла
-     * config/routes.php
+     * Конструктор класса Router, получает массив настроек
+     * config/router_config.php
      *
      * @return void
      */
     public function __construct()
     {
         $this->config = require_once ROOT . '/config/router_config.php';
-        $this->routes = require_once ROOT . '/config/routes.php';
     }
 
     /**
@@ -53,11 +47,8 @@ class Router
 
                 if (method_exists($controller, $action)) {
 
-                    $parameters = $this->getParameters();
+                    return call_user_func_array([$controller, $action], $this->getParameters());
 
-                    call_user_func_array([$controller, $action], $parameters);
-
-                    return;
                 }
             }
         }
@@ -72,8 +63,6 @@ class Router
     private function notFound()
     {
         $this->start($this->config['notFound']);
-
-        return;
     }
 
     /**
@@ -85,7 +74,7 @@ class Router
      */
     private function searchRoute($url)
     {
-        foreach ($this->routes as $pattern => $route) {
+        foreach ($this->config['routes'] as $pattern => $route) {
 
             if(preg_match("#$pattern#i", $url, $matches))
             {
