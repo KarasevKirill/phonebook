@@ -15,6 +15,11 @@ class Router
     private $route = [];
 
     /**
+     * @var array настройки маршрутизатора
+     */
+    private $config = [];
+
+    /**
      * Конструктор класса Router, получает массив маршрутов из файла
      * config/routes.php
      *
@@ -22,6 +27,7 @@ class Router
      */
     public function __construct()
     {
+        $this->config = require_once ROOT . '/config/router_config.php';
         $this->routes = require_once ROOT . '/config/routes.php';
     }
 
@@ -37,15 +43,15 @@ class Router
     {
         if ($this->searchRoute($url)) {
 
-            $controller = 'controllers\\' . $this->getNormalName($this->route['controller']) . 'Controller';
+            $controllerName = 'controllers\\' . $this->getNormalName($this->route['controller']) . 'Controller';
 
-            if (class_exists($controller)) {
+            if (class_exists($controllerName)) {
 
-                $controllerObject = new $controller();
+                $controller = new $controllerName();
 
                 $action = 'action' . $this->getNormalName($this->route['action']);
 
-                if (method_exists($controllerObject, $action)) {
+                if (method_exists($controller, $action)) {
 
                     $parameters = [];
 
@@ -56,7 +62,7 @@ class Router
 
                     }
 
-                    call_user_func_array([$controllerObject, $action], $parameters);
+                    call_user_func_array([$controller, $action], $parameters);
 
                     return;
                 }
@@ -72,9 +78,9 @@ class Router
      */
     private function notFound()
     {
-        http_response_code(404);
-        require_once '404.html';
-        exit;
+        $this->start($this->config['notFound']);
+
+        return;
     }
 
     /**
@@ -101,7 +107,7 @@ class Router
                 // если без экшена
                 if(!isset($route['action']))
                 {
-                    $route['action'] = 'index';
+                    $route['action'] = $this->config['baseAction'];
                 }
                 $this->route = $route;
                 return true;

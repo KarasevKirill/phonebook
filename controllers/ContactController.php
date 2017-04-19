@@ -207,4 +207,11 @@ class ContactController extends Controller
             echo json_encode($streets);
         }
     }
+
+    public function actionNotFound()
+    {
+        http_response_code(404);
+
+        $this->render('contact/not-found');
+    }
 }
