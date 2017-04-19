@@ -53,14 +53,7 @@ class Router
 
                 if (method_exists($controller, $action)) {
 
-                    $parameters = [];
-
-                    // заполняем параметры, если они есть
-                    if (isset($this->route['parameter'])) {
-
-                        $parameters = $this->getParameters($this->route['parameter']);
-
-                    }
+                    $parameters = $this->getParameters();
 
                     call_user_func_array([$controller, $action], $parameters);
 
@@ -122,14 +115,19 @@ class Router
     }
 
     /**
-     * Принимает строку с параметрами из url и возвращает параметры в виде массива
+     * Проверяет, существует ил строка с паармтерами в $this->route['parameter'], если да
+     * то возвращает параметры в виде массива, иначе возвращает пустой массив
      *
-     * @param string
      * @return array
      */
-    private function getParameters($parameter)
+    private function getParameters()
     {
-        return explode('/', $parameter);
+        if (isset($this->route['parameter'])) {
+
+            return explode('/', $this->route['parameter']);
+
+        }
+        return [];
     }
 
     /**
