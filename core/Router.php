@@ -47,8 +47,9 @@ class Router
 
                 if (method_exists($controller, $action)) {
 
-                    return call_user_func_array([$controller, $action], $this->getParameters());
+                    call_user_func_array([$controller, $action], $this->getParameters());
 
+                    return;
                 }
             }
         }

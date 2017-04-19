@@ -186,11 +186,23 @@ class ContactController extends Controller
     }
 
     /**
+     * Устанавливает заголовок 404 ошибки и возвращает пользователю страницу этой ошибки
+     *
+     * @return void
+     */
+    public function actionNotFound()
+    {
+        http_response_code(404);
+
+        return $this->render('contact/not-found');
+    }
+
+    /**
      * Получает id выбранного в выпадающем меню города и возвращает список улиц, находящихся
      * в нем. Работает через ajax
      *
      * @param int
-     * @return void
+     * @return void|boolean
      */
     public function actionGetStreets()
     {
@@ -206,12 +218,5 @@ class ContactController extends Controller
 
             echo json_encode($streets);
         }
-    }
-
-    public function actionNotFound()
-    {
-        http_response_code(404);
-
-        return $this->render('contact/not-found');
     }
 }
