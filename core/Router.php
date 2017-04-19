@@ -23,6 +23,10 @@ class Router
     public function __construct()
     {
         $this->config = require_once ROOT . '/config/router.php';
+
+        // регулярное выражение из 'route' становится ключем массива, в который будут попадать
+        // контроллер, метод и параметры
+        $this->config['routes'] = [$this->config['routes'] => []];
     }
 
     /**
