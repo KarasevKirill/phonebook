@@ -34,7 +34,7 @@ class Router
     /**
      * Пытается найти контроллер и метод, имена которых находятся в $this->route, если находит, то
      * создает экземпляр контроллера и вызывает его метод, передавая в него параметры (если есть) иначе
-     * возвращает ошибку 404
+     * вызывает $this->notFound()
      *
      * @param string
      * @return void
@@ -72,7 +72,7 @@ class Router
     }
 
     /**
-     * Сообщает о том, что искомая страница не найдена
+     * Подключает путь, указанный в 'notFound' в config/router_config.php
      *
      * @return void
      */
@@ -104,7 +104,12 @@ class Router
                         $route[$key] = $value;
                     }
                 }
-                // если без экшена
+                // если не указан контроллер
+                if(!isset($route['controller']))
+                {
+                    $route['controller'] = $this->config['baseController'];
+                }
+                // если не указан метод
                 if(!isset($route['action']))
                 {
                     $route['action'] = $this->config['baseAction'];
@@ -113,7 +118,6 @@ class Router
                 return true;
             }
         }
-
         return false;
     }
 
