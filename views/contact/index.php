@@ -32,8 +32,16 @@ $this->title = 'Список контактов';
                 <td><?= htmlspecialchars($contact['street'])?></td>
                 <td><?= htmlspecialchars($contact['birthday'])?></td>
                 <td><?= htmlspecialchars($contact['phone'])?></td>
-                <td class="action"><a href="/contact/edit/<?= $contact['id']?>"><img src="/content/images/edit.png" title="Редактировать"></a></td>
-                <td class="action"><a href="/contact/delete/<?= $contact['id']?>" class="del-link" onclick="return confirmDel()"><img src="/content/images/delete.png" title="Удалить"></a></td>
+                <td class="action">
+                    <a href="/contact/edit/<?= $contact['id']?>">
+                        <img src="/content/images/edit.png" title="Редактировать">
+                    </a>
+                </td>
+                <td class="action">
+                    <a href="/contact/delete/<?= $contact['id']?>" class="del-link" onclick="return confirmDel()">
+                        <img src="/content/images/delete.png" title="Удалить">
+                    </a>
+                </td>
             </tr>
             <?php $i++; endforeach; ?>
         </tbody>

@@ -29,7 +29,7 @@ class Contact extends Model
                                         ORDER BY contact.id
                                       ");
 
-        return $contacts->fetchAll(\PDO::FETCH_ASSOC);
+        return $contacts->fetchAll();
     }
 
     /**
@@ -56,7 +56,7 @@ class Contact extends Model
             'id' => $id
         ]);
 
-        return $contact->fetch(\PDO::FETCH_ASSOC);
+        return $contact->fetch();
     }
 
     /**
@@ -139,7 +139,7 @@ class Contact extends Model
     {
         $cities = $this->pdo->query('SELECT * FROM city');
 
-        return $cities->fetchAll(\PDO::FETCH_ASSOC);
+        return $cities->fetchAll();
     }
 
     /**
@@ -157,6 +157,6 @@ class Contact extends Model
             ':id' => $id
         ]);
 
-        return $query->fetchAll(\PDO::FETCH_ASSOC);
+        return $query->fetchAll();
     }
 }

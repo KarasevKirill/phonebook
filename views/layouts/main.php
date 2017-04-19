@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <?php $this->getLayoutStyles()?>
-    <title><?= htmlspecialchars($this->title)?></title>
+    <title><?= $this->title ?: htmlspecialchars($this->title)?></title>
 </head>
 <body>
     <div id="root-div">

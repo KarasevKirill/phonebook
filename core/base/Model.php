@@ -29,7 +29,9 @@ abstract class Model
         $this->tableName = $this->getTableName();
 
         $db = require_once ROOT . '/config/db.php';
-        $this->pdo = new \PDO($db['dsn'], $db['user'], $db['password']);
+        $this->pdo = new \PDO($db['dsn'], $db['user'], $db['password'], [
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+        ]);
     }
 
     /**

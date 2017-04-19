@@ -4,7 +4,7 @@
 use core\Router;
 
 
-//error_reporting(-1);
+error_reporting(-1);
 
 define('ROOT', __DIR__);
 
