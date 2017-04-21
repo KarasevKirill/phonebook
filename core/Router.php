@@ -24,9 +24,8 @@ class Router
     {
         $this->config = require_once ROOT . '/config/router.php';
 
-        // регулярное выражение из 'routes' становится ключем массива, в который будут попадать
-        // контроллер, метод и параметры
-
+        // если в таблице маршрутов регулярное выражение в виде строки, то оно становится
+        // ключем массива
         if (!is_array($this->config['routes'])) {
             $this->config['routes'] = [$this->config['routes'] => []];
         }
