@@ -3,5 +3,8 @@
         'baseAction' => 'index',
         'baseController' => 'contact',
         'notFound' => 'contact/not-found',
-        'routes' => '^(?<controller>[a-z-]+)?/?(?<action>[a-z-]+)?/?(?<parameter>[a-z0-9/-]+)?$',
+        'routes' => [
+            'aaa/aaa' => ['controller' => 'admin', 'action' => 'index'],
+            '^(?<controller>[a-z-]+)?/?(?<action>[a-z-]+)?/?(?<parameter>[a-z0-9/-]+)?$' => [],
+        ],
     ];

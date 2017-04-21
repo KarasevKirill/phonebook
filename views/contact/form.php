@@ -9,11 +9,6 @@
     <form method="POST" class="form-horizontal">
         <input type="hidden" name="contact[id]" value="<?= isset($contact['id']) ? $contact['id'] : ''?>">
         <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-2">
-                <a class="btn btn-default" href="/">Вернуться</a>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="control-label col-sm-4" for="form-name">Фамилия *</label>
             <div class="col-sm-4">
                 <input class="form-control" id="form-name" type="text" name="contact[surname]" required="required"
@@ -90,7 +85,10 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-2">
-                <input class="btn btn-success" type="submit" name="submit" value="Сохранить">
+                <input class="btn btn-success btn-block" type="submit" name="submit" value="Сохранить">
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-default btn-block" href="/">Вернуться</a>
             </div>
         </div>
     </form>

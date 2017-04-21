@@ -26,7 +26,10 @@ class Router
 
         // регулярное выражение из 'routes' становится ключем массива, в который будут попадать
         // контроллер, метод и параметры
-        $this->config['routes'] = [$this->config['routes'] => []];
+
+        if (!is_array($this->config['routes'])) {
+            $this->config['routes'] = [$this->config['routes'] => []];
+        }
     }
 
     /**
