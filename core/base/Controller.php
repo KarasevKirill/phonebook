@@ -3,6 +3,7 @@
 
 namespace core\base;
 
+use core\View;
 
 abstract class Controller
 {
